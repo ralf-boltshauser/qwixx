@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
       document.querySelector('#container')?.requestFullscreen();
     }
     screen.orientation
-      .lock('landscape')
+      .lock('landscape-primary')
       .then(function () {
         alert('Locked');
       })
