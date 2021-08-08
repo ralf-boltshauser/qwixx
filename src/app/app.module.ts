@@ -7,14 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RowComponent } from './row/row.component';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { CalculateComponent } from './calculate/calculate.component';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
-  declarations: [
-    AppComponent,
-    RowComponent,
-    CalculateComponent
-  ],
+  declarations: [AppComponent, RowComponent, CalculateComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,11 +20,12 @@ import { CalculateComponent } from './calculate/calculate.component';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

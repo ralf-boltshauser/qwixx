@@ -12,4 +12,12 @@
   </p>
   =
   <p class="total">{{ this.countService.getPoints()["total"] }}</p>
+  <button mat-icon-button>
+    <mat-icon
+      [@normalReload]="reload ? 'reload' : 'normal'"
+      (@normalReload.done)="reload = false"
+      (click)="toggle()"
+      >autorenew</mat-icon
+    >
+  </button>
 </div>

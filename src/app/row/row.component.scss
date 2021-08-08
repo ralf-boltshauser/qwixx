@@ -8,20 +8,20 @@
 }
 
 .red {
-  background-color: #eb2020;
+  background-color: #eb202083;
 }
 .yellow {
-  background-color: #ebeb0a;
+  background-color: #ebeb0a83;
 }
 .green {
-  background-color: #1e991e;
+  background-color: #1e991e83;
 }
 .blue {
-  background-color: rgb(56, 56, 189);
+  background-color: #1941af83;
 }
 
 button {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.685);
   width: 100px;
   height: 3em;
   margin: 7.5px;
@@ -30,14 +30,13 @@ button {
 }
 
 .clicked {
-    font-weight: bold;
-    font-size: 1.2em;
-    transition: 0.2s;
+  font-weight: bolder;
+  font-size: 1.2em;
+  transition: 0.2s;
 }
 
 .unused {
-    font-weight: bold;
-    text-decoration: line-through;
-    color: rgb(85, 85, 85);
-    font-size: 1em;
+  font-weight: lighter;
+  text-decoration: line-through;
+  color: rgb(85, 85, 85);
 }

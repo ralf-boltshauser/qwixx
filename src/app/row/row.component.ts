@@ -14,6 +14,14 @@ export class RowComponent implements OnInit {
   constructor(private countService: CountService) {}
 
   ngOnInit(): void {
+    this.initialize();
+    this.countService.$round.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize() {
+    this.buttons = [];
     for (let i = 2; i <= 12; i++) {
       let number = this.asc ? i : 14 - i;
       this.buttons.push({
