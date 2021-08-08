@@ -31,7 +31,6 @@ export class RowComponent implements OnInit {
     let index = this.buttons.findIndex((b) => b.number === number);
     if (this.buttons[index].state === '') {
       this.buttons[index].state = 'clicked';
-      console.log(this.buttons);
       this.countService.setPoints(
         this.color,
         this.countService.count(this.color, this.buttons)
