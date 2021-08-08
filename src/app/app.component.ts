@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'qwixx';
 
-  constructor() {
-    screen.orientation.lock('landscape').then(() => {
-      console.log('Orientation locked!');
-    });
+  constructor() {}
+  ngOnInit(): void {
+    if (document?.querySelector('#container')?.requestFullscreen) {
+      document.querySelector('#container')?.requestFullscreen();
+    }
+    screen.orientation
+      .lock('landscape')
+      .then(function () {
+        alert('Locked');
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   }
 }
