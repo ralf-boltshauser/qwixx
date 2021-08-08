@@ -31,12 +31,30 @@ button {
 
 .clicked {
   font-weight: bolder;
+  text-decoration: underline;
   font-size: 1.2em;
   transition: 0.2s;
+}
+.clicked::before {
+  content: "X";
+  position: absolute;
+  font-weight: 100;
+  font-size: 250%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .unused {
   font-weight: lighter;
-  text-decoration: line-through;
   color: rgb(85, 85, 85);
+}
+.unused::before {
+  content: "—";
+  position: absolute;
+  font-weight: 100;
+  font-size: 250%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
