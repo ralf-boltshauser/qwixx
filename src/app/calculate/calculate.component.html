@@ -7,12 +7,20 @@
   +
   <p class="blue">{{ this.countService.getPoints()["blue"] }}</p>
   -
-  <p class="faults" (click)="this.countService.increaseFaults()">
+  <p class="faults">
     {{ this.countService.getPoints()["faults"] }}
   </p>
   =
   <p class="total">{{ this.countService.getPoints()["total"] }}</p>
-  <button mat-icon-button>
+  <button
+    mat-button
+    color="warn"
+    id="addFault"
+    (click)="this.countService.increaseFaults()"
+  >
+    Fehlerpunkt
+  </button>
+  <button id="reload" mat-icon-button>
     <mat-icon
       [@normalReload]="reload ? 'reload' : 'normal'"
       (@normalReload.done)="reload = false"

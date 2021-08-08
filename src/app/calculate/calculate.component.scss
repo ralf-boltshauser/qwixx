@@ -33,7 +33,16 @@ div {
   font-size: 1.2em;
 }
 
-button {
+#addFault {
+  border-radius: 5%;
+  margin: 2.5vh;
+  align-content: center;
+  text-align: center;
+  font-size: 1.2em;
+  height: 15vh;
+}
+
+#reload {
   position: absolute;
   right: 2.5vh;
   bottom: 2.5vh;
