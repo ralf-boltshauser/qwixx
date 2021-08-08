@@ -1,0 +1,35 @@
+p {
+  width: 15vh;
+  height: 15vh;
+  display: inline-block;
+  border-radius: 5%;
+  margin: 2.5vh;
+  align-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+}
+div {
+    line-height: 15vh;
+}
+
+.red {
+  background-color: #eb202083;
+}
+.yellow {
+  background-color: #ebeb0a79;
+}
+.green {
+  background-color: #1e991e85;
+}
+.blue {
+  background-color: rgba(56, 56, 189, 0.527);
+}
+.faults {
+    background-color: rgb(207, 207, 207);
+
+}
+
+.total {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

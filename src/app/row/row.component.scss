@@ -1,0 +1,43 @@
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 20vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.red {
+  background-color: #eb2020;
+}
+.yellow {
+  background-color: #ebeb0a;
+}
+.green {
+  background-color: #1e991e;
+}
+.blue {
+  background-color: rgb(56, 56, 189);
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 100px;
+  height: 3rem;
+  margin: 7.5px;
+  min-width: 5px;
+  font-size: 1.1rem;
+}
+
+.clicked {
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: 0.2s;
+}
+
+.unused {
+    font-weight: bold;
+    text-decoration: line-through;
+    color: rgb(85, 85, 85);
+    font-size: 1rem;
+}

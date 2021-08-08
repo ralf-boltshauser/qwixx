@@ -1,0 +1,15 @@
+<div>
+  <p class="red">{{ this.countService.getPoints()["red"] }}</p>
+  +
+  <p class="yellow">{{ this.countService.getPoints()["yellow"] }}</p>
+  +
+  <p class="green">{{ this.countService.getPoints()["green"] }}</p>
+  +
+  <p class="blue">{{ this.countService.getPoints()["blue"] }}</p>
+  -
+  <p class="faults" (click)="this.countService.increaseFaults()">
+    {{ this.countService.getPoints()["faults"] }}
+  </p>
+  =
+  <p class="total">{{ this.countService.getPoints()["total"] }}</p>
+</div>

@@ -1,0 +1,5 @@
+<div [ngClass]="color" class="row">
+    <button mat-button *ngFor="let button of buttons" [ngClass]="button.state" (click)="buttonClicked(button.number)">
+        {{button.number}}
+    </button>
+</div>

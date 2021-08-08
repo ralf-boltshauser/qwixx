@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { RowComponent } from './row/row.component';
+import {MatButtonModule} from '@angular/material/button';
+import { CalculateComponent } from './calculate/calculate.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RowComponent,
+    CalculateComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +24,8 @@ import { environment } from '../environments/environment';
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
