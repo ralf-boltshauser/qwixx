@@ -49,6 +49,34 @@ export class RowComponent implements OnInit {
           b.state = 'unused';
         }
       });
+    } else if (this.buttons[index].state === 'clicked') {
+      if (this.isLastClicked(number)) {
+        this.buttons[index].state = '';
+        for (let i = this.buttons.length; i > 0; i--) {
+          if (this.buttons[i - 1].state === 'unused') {
+            this.buttons[i - 1].state = '';
+          }
+          if (this.buttons[i - 1].state === 'clicked') {
+            break;
+          }
+        }
+        this.countService.setPoints(
+          this.color,
+          this.countService.count(this.color, this.buttons)
+        );
+      }
     }
+  }
+
+  isLastClicked(number: string): boolean {
+    let index = this.buttons.findIndex((b) => b.number === number);
+    if (
+      this.buttons[index].number === 'X' ||
+      (this.buttons[index].state === 'clicked' &&
+        this.buttons[index + 1].state === '')
+    ) {
+      return true;
+    }
+    return false;
   }
 }

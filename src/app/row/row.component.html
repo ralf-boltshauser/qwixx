@@ -1,5 +1,14 @@
 <div [ngClass]="color" class="row">
-    <button mat-button *ngFor="let button of buttons" [disabled]="button.state === 'unused'" [ngClass]="button.state" (click)="buttonClicked(button.number)">
-        {{button.number}}
-    </button>
+  <button
+    mat-button
+    *ngFor="let button of buttons"
+    [disabled]="
+      button.state == 'unused' ||
+      (!isLastClicked(button.number) && button.state === 'clicked')
+    "
+    [ngClass]="button.state"
+    (click)="buttonClicked(button.number)"
+  >
+    {{ button.number }}
+  </button>
 </div>
