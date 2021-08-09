@@ -25,7 +25,7 @@ export class RowComponent implements OnInit {
     });
 
     this.diceService.getDices().subscribe((dices: number[]) => {
-      console.log(dices);
+      
       this.resetPossibleButtons();
       this.setPossible(dices[0] + dices[1]);
       this.setPossible(dices[0] + dices[this.index + 2]);
