@@ -1,4 +1,4 @@
-<div class="diceRoller">
+<div id="diceRoller">
   <div>
     <div class="square" *ngFor="let diceValue of diceValues; let i = index">
       <app-dice [color]="colors[i]" [value]="diceValue"></app-dice>
