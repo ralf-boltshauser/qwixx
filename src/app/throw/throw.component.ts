@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-
+import ShakeDetector from 'shake-detector';
 @Component({
   selector: 'app-throw',
   templateUrl: './throw.component.html',
@@ -31,7 +31,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThrowComponent implements OnInit {
   constructor() {}
-
+  options = {
+    threshold: 8,
+    debounceDelay: 500,
+  };
+  shakeDetector = new ShakeDetector(this.options);
   public diceValues: Array<number> = [0, 0, 0, 0, 0, 0];
 
   public colors = ['white', 'white', 'red', 'yellow', 'green', 'blue'];
@@ -53,17 +57,11 @@ export class ThrowComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    if (!('ondevicemotion' in window)) {
-      alert('Not Supported');
-    }
-    window.addEventListener('devicemotion', (event: any) => {
-      var x = event.accelerationIncludingGravity.x;
-      var y = event.accelerationIncludingGravity.y;
-      var z = event.accelerationIncludingGravity.z;
-      var r = Math.round(Math.sqrt(x * x + y * y + z * z) * 10);
-      if (r > 0) {
-        this.diceRoll();
-      }
+    this.shakeDetector.confirmPermissionGranted();
+    this.shakeDetector.start();
+    this.shakeDetector.requestPermission();
+    this.shakeDetector.subscribe(() => {
+      this.diceRoll();
     });
   }
 
