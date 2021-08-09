@@ -36,16 +36,23 @@ export class ThrowComponent implements OnInit {
     debounceDelay: 500,
   };
   shakeDetector = new ShakeDetector(this.options);
+  canRoll = true;
   public diceValues: Array<number> = [0, 0, 0, 0, 0, 0];
 
   public colors = ['white', 'white', 'red', 'yellow', 'green', 'blue'];
 
   diceRoll() {
-    this.reload = !this.reload;
-    for (let i = 0; i < 10; i++) {
+    if (this.canRoll) {
+      this.canRoll = false;
+      this.reload = !this.reload;
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          this.roll();
+        }, Math.pow(i / 3, 2) * 100);
+      }
       setTimeout(() => {
-        this.roll();
-      }, Math.pow(i / 3, 2) * 100);
+        this.canRoll = true;
+      }, 3000);
     }
   }
 

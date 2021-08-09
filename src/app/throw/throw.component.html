@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <button id="reload" mat-icon-button>
+  <button id="reload" mat-icon-button [disabled]="!canRoll">
     <mat-icon
       [@normalReload]="reload ? 'reload' : 'normal'"
       (@normalReload.done)="reload = false"
