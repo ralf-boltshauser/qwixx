@@ -27,10 +27,21 @@ export class RowComponent implements OnInit {
     this.diceService.getDices().subscribe((dices: number[]) => {
       console.log(dices);
       this.resetPossibleButtons();
-      this.buttons[dices[0] + dices[1] - 2].state = 'possible';
-      this.buttons[dices[0] + dices[this.index + 2] - 2].state = 'possible';
-      this.buttons[dices[1] + dices[this.index + 2] - 2].state = 'possible';
+      this.setPossible(dices[0] + dices[1]);
+      this.setPossible(dices[0] + dices[this.index + 2]);
+      this.setPossible(dices[1] + dices[this.index + 2]);
     });
+  }
+
+  setPossible(index: number) {
+    if (this.asc) {
+      index = index - 2;
+    } else {
+      index = 14 - index - 2;
+    }
+    if (this.buttons[index].state === '') {
+      this.buttons[index].state = 'possible';
+    }
   }
 
   resetPossibleButtons(): void {
