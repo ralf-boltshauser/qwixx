@@ -52,7 +52,20 @@ export class ThrowComponent implements OnInit {
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!('ondevicemotion' in window)) {
+      alert('Not Supported');
+    }
+    window.addEventListener('devicemotion', (event: any) => {
+      var x = event.accelerationIncludingGravity.x;
+      var y = event.accelerationIncludingGravity.y;
+      var z = event.accelerationIncludingGravity.z;
+      var r = Math.round(Math.sqrt(x * x + y * y + z * z) * 10);
+      if (r > 0) {
+        this.diceRoll();
+      }
+    });
+  }
 
   reload = false;
 }
