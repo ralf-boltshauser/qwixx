@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CountService } from '../count.service';
+import { CountService } from '../services/count.service';
 import { NumberButtonModel } from '../models/numberButton.model';
 
 @Component({

@@ -1,5 +1,5 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { CountService } from '../count.service';
+import { Component, OnInit } from '@angular/core';
+import { CountService } from '../services/count.service';
 import {
   trigger,
   state,
@@ -33,6 +33,10 @@ import {
 })
 export class CalculateComponent implements OnInit {
   constructor(public countService: CountService) {}
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
+    // do nothing.
+  }
 
   reload = false;
 
@@ -40,6 +44,4 @@ export class CalculateComponent implements OnInit {
     this.reload = !this.reload;
     this.countService.reset();
   }
-
-  ngOnInit(): void {}
 }

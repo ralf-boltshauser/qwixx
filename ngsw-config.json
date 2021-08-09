@@ -5,11 +5,13 @@
     {
       "name": "app",
       "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
+          "/ngsw-worker.js",
           "/*.css",
           "/*.js"
         ]

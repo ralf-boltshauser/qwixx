@@ -3,7 +3,7 @@
     mat-button
     *ngFor="let button of buttons"
     [disabled]="
-      button.state == 'unused' ||
+      button.state === 'unused' ||
       (!isLastClicked(button.number) && button.state === 'clicked')
     "
     [ngClass]="button.state"
