@@ -10,7 +10,7 @@ export class UpdateService {
   forceUpdate(): void {
     if (this.updates.isEnabled) {
       this.updates.available.subscribe((event) => {
-        window.alert('We are updating Qwixx. Update will follow shortly.');
+        window.alert('Ein neues Qwixx Update is verfügbar. Wir laden die App neu!');
         this.updates.activateUpdate().then(() => window.location.reload());
       });
     }
