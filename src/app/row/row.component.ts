@@ -116,7 +116,8 @@ export class RowComponent implements OnInit {
     if (
       this.buttons[index].number === 'X' ||
       (this.buttons[index].state === 'clicked' &&
-        this.buttons[index + 1].state === '')
+        (this.buttons[index + 1].state === '' ||
+          this.buttons[index + 1].state === 'possible'))
     ) {
       return true;
     }
