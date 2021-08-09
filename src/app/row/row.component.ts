@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CountService } from '../services/count.service';
 import { NumberButtonModel } from '../models/numberButton.model';
+import { DiceService } from '../services/dice.service';
 
 @Component({
   selector: 'app-row',
@@ -10,13 +11,31 @@ import { NumberButtonModel } from '../models/numberButton.model';
 export class RowComponent implements OnInit {
   @Input() color = '';
   @Input() asc = true;
+  @Input() index = 0;
   buttons: NumberButtonModel[] = [];
-  constructor(private countService: CountService) {}
+  constructor(
+    private countService: CountService,
+    private diceService: DiceService
+  ) {}
 
   ngOnInit(): void {
     this.initialize();
     this.countService.$round.subscribe(() => {
       this.initialize();
+    });
+
+    this.diceService.getDices().subscribe((dices: number[]) => {
+      console.log(dices);
+      this.resetPossibleButtons();
+      this.buttons[dices[0] + dices[1] - 2].state = 'possible';
+      this.buttons[dices[0] + dices[this.index + 2] - 2].state = 'possible';
+      this.buttons[dices[1] + dices[this.index + 2] - 2].state = 'possible';
+    });
+  }
+
+  resetPossibleButtons(): void {
+    this.buttons.forEach((b) => {
+      b.state = '';
     });
   }
 
@@ -37,7 +56,7 @@ export class RowComponent implements OnInit {
 
   buttonClicked(number: string): void {
     let index = this.buttons.findIndex((b) => b.number === number);
-    if (this.buttons[index].state === '') {
+    if (this.buttons[index].state === 'possible') {
       this.buttons[index].state = 'clicked';
       this.countService.setPoints(
         this.color,

@@ -7,6 +7,7 @@ import {
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import ShakeDetector from 'shake-detector';
+import { DiceService } from '../services/dice.service';
 @Component({
   selector: 'app-throw',
   templateUrl: './throw.component.html',
@@ -30,7 +31,7 @@ import ShakeDetector from 'shake-detector';
   ],
 })
 export class ThrowComponent implements OnInit {
-  constructor() {}
+  constructor(private diceService: DiceService) {}
   options = {
     threshold: 8,
     debounceDelay: 500,
@@ -48,11 +49,12 @@ export class ThrowComponent implements OnInit {
       for (let i = 0; i < 10; i++) {
         setTimeout(() => {
           this.roll();
+          if (i == 9) {
+            this.canRoll = true;
+            this.diceService.setDices(this.diceValues);
+          }
         }, Math.pow(i / 3, 2) * 100);
       }
-      setTimeout(() => {
-        this.canRoll = true;
-      }, 3000);
     }
   }
 
