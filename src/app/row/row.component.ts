@@ -46,7 +46,9 @@ export class RowComponent implements OnInit {
 
   resetPossibleButtons(): void {
     this.buttons.forEach((b) => {
-      b.state = '';
+      if (b.state === 'possible') {
+        b.state = '';
+      }
     });
   }
 
@@ -67,7 +69,10 @@ export class RowComponent implements OnInit {
 
   buttonClicked(number: string): void {
     let index = this.buttons.findIndex((b) => b.number === number);
-    if (this.buttons[index].state === 'possible') {
+    if (
+      this.buttons[index].state === '' ||
+      this.buttons[index].state === 'possible'
+    ) {
       this.buttons[index].state = 'clicked';
       this.countService.setPoints(
         this.color,
