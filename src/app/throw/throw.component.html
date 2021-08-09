@@ -1,0 +1,16 @@
+<div class="diceRoller">
+  <div>
+    <div class="square" *ngFor="let diceValue of diceValues; let i = index">
+      <app-dice [color]="colors[i]" [value]="diceValue"></app-dice>
+    </div>
+  </div>
+
+  <button id="reload" mat-icon-button>
+    <mat-icon
+      [@normalReload]="reload ? 'reload' : 'normal'"
+      (@normalReload.done)="reload = false"
+      (click)="diceRoll()"
+      >autorenew</mat-icon
+    >
+  </button>
+</div>

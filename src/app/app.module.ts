@@ -10,8 +10,10 @@ import { RowComponent } from './row/row.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CalculateComponent } from './calculate/calculate.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DiceComponent } from './dice/dice.component';
+import { ThrowComponent } from './throw/throw.component';
 @NgModule({
-  declarations: [AppComponent, RowComponent, CalculateComponent],
+  declarations: [AppComponent, RowComponent, CalculateComponent, DiceComponent, ThrowComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
