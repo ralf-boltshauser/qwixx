@@ -25,11 +25,12 @@ export class RowComponent implements OnInit {
     });
 
     this.diceService.getDices().subscribe((dices: number[]) => {
-      
-      this.resetPossibleButtons();
-      this.setPossible(dices[0] + dices[1]);
-      this.setPossible(dices[0] + dices[this.index + 2]);
-      this.setPossible(dices[1] + dices[this.index + 2]);
+      if (dices.length !== 0) {
+        this.resetPossibleButtons();
+        this.setPossible(dices[0] + dices[1]);
+        this.setPossible(dices[0] + dices[this.index + 2]);
+        this.setPossible(dices[1] + dices[this.index + 2]);
+      }
     });
   }
 
@@ -80,7 +81,7 @@ export class RowComponent implements OnInit {
       );
       // set state of previous button to unused
       this.buttons.forEach((b, i) => {
-        if (i < index && b.state === '') {
+        if (i < index && (b.state === '' || b.state === 'possible')) {
           b.state = 'unused';
         }
       });
@@ -94,6 +95,13 @@ export class RowComponent implements OnInit {
           if (this.buttons[i - 1].state === 'clicked') {
             break;
           }
+        }
+        const dices = this.diceService.getDices().getValue();
+        if (dices.length !== 0) {
+          this.resetPossibleButtons();
+          this.setPossible(dices[0] + dices[1]);
+          this.setPossible(dices[0] + dices[this.index + 2]);
+          this.setPossible(dices[1] + dices[this.index + 2]);
         }
         this.countService.setPoints(
           this.color,

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiceService {
-  dices: Subject<number[]> = new Subject();
+  dices: BehaviorSubject<number[]> = new BehaviorSubject(new Array<number>());
 
   constructor() {}
 
