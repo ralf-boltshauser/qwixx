@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Prepare to push",
+      "script": "increment-version",
+      "type": "npm",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Testing"],
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "Testing",
+      "script": "test-headless",
+      "type": "npm",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Linting"],
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "Linting",
+      "script": "lint",
+      "type": "npm",
+      "group": "build"
+    },
+    {
+      "label": "Http-Server",
+      "script": "http-server",
+      "type": "npm",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Build"],
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "Build",
+      "script": "build:prod",
+      "type": "npm",
+      "group": "build",
+      "problemMatcher": ["$eslint-stylish"]
+    }
+  ]
+}
