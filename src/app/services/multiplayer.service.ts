@@ -1,31 +1,20 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ThrowModel } from './models/throw.model';
-import { MultiplayerService } from './services/multiplayer.service';
-import { UpdateService } from './services/update.service';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+import { Injectable, OnDestroy } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ThrowModel } from '../models/throw.model';
+
+@Injectable({
+  providedIn: 'root',
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
-  title = 'qwixx';
-  isMobile = true;
-  constructor(
-    private updateService: UpdateService,
-    private multiplayerService: MultiplayerService
-  ) {
-    this.isMobile = this.isMobileDevice();
-    window.onbeforeunload = () => this.ngOnDestroy();
+export class MultiplayerService implements OnDestroy {
+  isServer = false;
+  id: string = 'asdf';
+  connected = new BehaviorSubject<boolean>(false);
+  constructor(private db: AngularFireDatabase) {
+    this.id = this.makeid(4);
+    this.isServer = !this.isMobileDevice();
   }
-
-  ngOnDestroy() {
-    this.multiplayerService.deleteDices();
-  }
-
-  ngAfterViewInit(): void {
-    this.updateService.forceUpdate(); // force update on first load
-  }
-
   isMobileDevice() {
     var check = false;
     (function (a) {
@@ -40,5 +29,53 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         check = true;
     })(navigator.userAgent || navigator.vendor);
     return check;
+  }
+
+  ngOnDestroy() {
+    this.deleteDices();
+  }
+
+  setId(id: string) {
+    this.id = id;
+    if (id != '') {
+      //console.log('Connected', id);
+      this.connected.next(true);
+    }
+  }
+
+  getId(): string {
+    return this.id;
+  }
+
+  getDices(): Observable<ThrowModel | null> {
+    return this.db.object<ThrowModel | null>(`dices/${this.id}`).valueChanges();
+  }
+  async setDices(dices: ThrowModel): Promise<void> {
+    if (this.id !== '' && dices.dice0 !== 0) {
+      return this.db.object(`dices/${this.id}`).update({ dices });
+    }
+  }
+
+  throw() {
+    let randomArray = [];
+    for (let i = 0; i < 6; i++) {
+      randomArray.push(Math.floor(Math.random() * 6) + 1);
+    }
+    this.setDices(new ThrowModel(randomArray));
+  }
+
+  deleteDices() {
+    this.db.object(`dices/${this.id}`).remove();
+  }
+
+  makeid(length: number): string {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 }

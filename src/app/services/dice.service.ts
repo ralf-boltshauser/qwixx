@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { ThrowModel } from '../models/throw.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiceService {
-  dices: BehaviorSubject<number[]> = new BehaviorSubject(new Array<number>());
+  dices: BehaviorSubject<ThrowModel> = new BehaviorSubject(new ThrowModel());
 
   constructor() {}
 
@@ -13,7 +14,8 @@ export class DiceService {
     return this.dices;
   }
 
-  setDices(dices: number[]) {
+  setDices(dices: ThrowModel) {
+    console.log(dices);
     this.dices.next(dices);
   }
 }

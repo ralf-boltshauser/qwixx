@@ -19,6 +19,11 @@ p {
   text-align: center;
 }
 
+div {
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (orientation: portrait) {
   #landscape {
     display: none;

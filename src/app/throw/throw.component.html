@@ -1,6 +1,11 @@
 <div id="diceRoller">
+  <button mat-icon-button id="multiplayer" (click)="openDialog()">
+    <mat-icon>
+      people
+    </mat-icon>
+  </button>
   <div>
-    <div class="square" *ngFor="let diceValue of diceValues; let i = index">
+    <div class="square" *ngFor="let diceValue of diceValues.dices; let i = index">
       <app-dice [color]="colors[i]" [value]="diceValue"></app-dice>
     </div>
   </div>

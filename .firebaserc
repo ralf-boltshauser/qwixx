@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "qwixx-eac74": {
+      "hosting": {
+        "qwixx": [
+          "qwixx-eac74"
+        ]
+      }
+    }
+  }
+}

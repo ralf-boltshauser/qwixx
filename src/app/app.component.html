@@ -1,10 +1,15 @@
-<div id="landscape">
-  <app-row [index]="0" [color]="'red'"></app-row>
-  <app-row [index]="1" [color]="'yellow'"></app-row>
-  <app-row [index]="2" [color]="'green'" [asc]="false"></app-row>
-  <app-row [index]="3" [color]="'blue'" [asc]="false"></app-row>
-  <app-calculate></app-calculate>
+<div id="mobile" *ngIf="isMobile; else desktop">
+  <div id="landscape">
+    <app-row [index]="0" [color]="'red'"></app-row>
+    <app-row [index]="1" [color]="'yellow'"></app-row>
+    <app-row [index]="2" [color]="'green'" [asc]="false"></app-row>
+    <app-row [index]="3" [color]="'blue'" [asc]="false"></app-row>
+    <app-calculate></app-calculate>
+  </div>
+  <div id="portrait">
+    <app-throw></app-throw>
+  </div>
 </div>
-<div id="portrait">
-  <app-throw></app-throw>
-</div>
+<ng-template #desktop id="desktop">
+  <app-game></app-game>
+</ng-template>

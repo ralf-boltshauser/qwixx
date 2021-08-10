@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CountService } from '../services/count.service';
 import { NumberButtonModel } from '../models/numberButton.model';
 import { DiceService } from '../services/dice.service';
+import { ThrowModel } from '../models/throw.model';
 
 @Component({
   selector: 'app-row',
@@ -24,12 +25,15 @@ export class RowComponent implements OnInit {
       this.initialize();
     });
 
-    this.diceService.getDices().subscribe((dices: number[]) => {
-      if (dices.length !== 0) {
+    this.diceService.getDices().subscribe((dices: ThrowModel) => {
+      let numbers = Object.values(dices.dices);
+      //console.log(numbers);
+      if (numbers.length !== 0 && numbers[0] !== 0) {
         this.resetPossibleButtons();
-        this.setPossible(dices[0] + dices[1]);
-        this.setPossible(dices[0] + dices[this.index + 2]);
-        this.setPossible(dices[1] + dices[this.index + 2]);
+        this.setPossible(numbers[0] + numbers[1]);
+        //console.log('white dices: ', numbers[0], numbers[1]);
+        this.setPossible(numbers[0] + numbers[this.index + 2]);
+        this.setPossible(numbers[1] + numbers[this.index + 2]);
       }
     });
   }
@@ -40,6 +44,7 @@ export class RowComponent implements OnInit {
     } else {
       index = 14 - index - 2;
     }
+    //console.log('Poissible: ', index);
     if (this.buttons[index].state === '') {
       this.buttons[index].state = 'possible';
     }
@@ -97,11 +102,13 @@ export class RowComponent implements OnInit {
           }
         }
         const dices = this.diceService.getDices().getValue();
-        if (dices.length !== 0) {
+
+        let numbers = Object.values(dices.dices);
+        if (numbers.length !== 0 && numbers[0] !== 0) {
           this.resetPossibleButtons();
-          this.setPossible(dices[0] + dices[1]);
-          this.setPossible(dices[0] + dices[this.index + 2]);
-          this.setPossible(dices[1] + dices[this.index + 2]);
+          this.setPossible(numbers[0] + numbers[1]);
+          this.setPossible(numbers[0] + numbers[this.index + 2]);
+          this.setPossible(numbers[1] + numbers[this.index + 2]);
         }
         this.countService.setPoints(
           this.color,

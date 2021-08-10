@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Multiplayer beitreten.</h1>
+<div mat-dialog-content>
+  <p>Gebe die Multiplayer Id ein!</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Multiplayer Id</mat-label>
+    <input matInput [(ngModel)]="data.id" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Zurück</button>
+  <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>
+    Ok
+  </button>
+</div>

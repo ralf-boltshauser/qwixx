@@ -6,8 +6,12 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import ShakeDetector from 'shake-detector';
+import { JoinComponent } from '../join/join.component';
+import { ThrowModel } from '../models/throw.model';
 import { DiceService } from '../services/dice.service';
+import { MultiplayerService } from '../services/multiplayer.service';
 @Component({
   selector: 'app-throw',
   templateUrl: './throw.component.html',
@@ -31,16 +35,57 @@ import { DiceService } from '../services/dice.service';
   ],
 })
 export class ThrowComponent implements OnInit {
-  constructor(private diceService: DiceService) {}
+  constructor(
+    private diceService: DiceService,
+    public dialog: MatDialog,
+    private multiplayerService: MultiplayerService
+  ) {}
   options = {
     threshold: 8,
     debounceDelay: 500,
   };
   shakeDetector = new ShakeDetector(this.options);
   canRoll = true;
-  public diceValues: Array<number> = [0, 0, 0, 0, 0, 0];
+  public diceValues: ThrowModel = new ThrowModel();
 
   public colors = ['white', 'white', 'red', 'yellow', 'green', 'blue'];
+
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
+    this.shakeDetector.confirmPermissionGranted();
+    this.shakeDetector.start();
+    this.shakeDetector.requestPermission();
+    this.shakeDetector.subscribe(() => {
+      this.diceRoll();
+    });
+
+    this.multiplayerService.connected.subscribe((connected) => {
+      if (connected) {
+        this.multiplayerService
+          .getDices()
+          .subscribe((dices: ThrowModel | null) => {
+            if (dices) {
+              console.log('Dices: ', dices);
+              this.remoteDiceRoll(dices);
+            }
+          });
+      }
+    });
+  }
+
+  remoteDiceRoll(dices: ThrowModel) {
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        if (i == 9) {
+          this.canRoll = true;
+          this.diceService.setDices(dices);
+          this.roll(Object.values(dices.dices));
+        } else {
+          this.roll();
+        }
+      }, Math.pow(i / 3, 2) * 100);
+    }
+  }
 
   diceRoll() {
     if (this.canRoll) {
@@ -58,21 +103,31 @@ export class ThrowComponent implements OnInit {
     }
   }
 
-  roll() {
-    for (let i = 0; i < this.diceValues.length; i++) {
-      this.diceValues[i] = Math.floor(Math.random() * 6) + 1;
+  roll(givenDices?: number[]) {
+    if (givenDices) {
+      this.diceValues = new ThrowModel(givenDices);
+    } else {
+      let dices = [];
+      for (let i = 0; i < 6; i++) {
+        dices.push(Math.floor(Math.random() * 6) + 1);
+      }
+      this.diceValues = new ThrowModel(dices);
     }
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {
-    this.shakeDetector.confirmPermissionGranted();
-    this.shakeDetector.start();
-    this.shakeDetector.requestPermission();
-    this.shakeDetector.subscribe(() => {
-      this.diceRoll();
+  reload = false;
+
+  // Multiplayer stuff
+  openDialog(): void {
+    const dialogRef = this.dialog.open(JoinComponent, {
+      width: '250px',
+      data: { id: '' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result != null) {
+        this.multiplayerService.setId(result);
+      }
     });
   }
-
-  reload = false;
 }
