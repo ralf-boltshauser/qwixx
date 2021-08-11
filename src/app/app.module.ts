@@ -26,6 +26,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { JoinComponent } from './client/portrait/join/join.component';
 import { InstallPromptComponent } from './ux/pwa/prompts/install-prompt/install-prompt.component';
 import { PwaService } from './services/pwa.service';
+import { UdpateComponent } from './ux/pwa/prompts/udpate/udpate.component';
 
 const initializer = (pwaService: PwaService) => () =>
   pwaService.initPwaPrompt();
@@ -39,6 +40,7 @@ const initializer = (pwaService: PwaService) => () =>
     GameComponent,
     JoinComponent,
     InstallPromptComponent,
+    UdpateComponent,
   ],
   imports: [
     BrowserModule,

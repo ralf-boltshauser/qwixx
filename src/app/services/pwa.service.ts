@@ -5,6 +5,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { InstallPromptComponent } from '../ux/pwa/prompts/install-prompt/install-prompt.component';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { UdpateComponent } from '../ux/pwa/prompts/udpate/udpate.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,10 +54,12 @@ export class PwaService {
   forceUpdate(): void {
     if (this.updates.isEnabled) {
       this.updates.available.subscribe((event) => {
-        window.alert(
-          'Ein neues Qwixx Update is verfügbar. Wir laden die App neu!'
-        );
-        this.updates.activateUpdate().then(() => window.location.reload());
+        this.bottomSheet
+          .open(UdpateComponent, {})
+          .afterDismissed()
+          .subscribe(() => {
+            this.updates.activateUpdate().then(() => window.location.reload());
+          });
       });
     }
   }
