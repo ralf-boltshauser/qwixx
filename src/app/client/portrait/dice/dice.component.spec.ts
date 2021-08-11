@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { DiceComponent } from './dice.component';
 
@@ -8,6 +9,7 @@ describe('DiceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [AppModule],
       declarations: [ DiceComponent ]
     })
     .compileComponents();
