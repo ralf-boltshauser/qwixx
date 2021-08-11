@@ -1,7 +1,7 @@
 <mat-toolbar
   *ngIf="data.mobileType === 'android'"
   color="primary"
-  class="android-prompt centered"
+  class="android-prompt"
 >
   <button mat-button (click)="installPwa()">Web App installieren</button>
   <button mat-icon-button (click)="close()" class="right">
@@ -10,17 +10,23 @@
 </mat-toolbar>
 
 <div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
+  <button
+    class="close-ios-inv right"
+    mat-button
+    color="primary"
+    (click)="close()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
   <div class="centered">
     <h2>App Installieren</h2>
     Um die Web Applikation auf deinem Handy zu installieren, klicke auf den Menü
     Knopf und anschliessend auf "Zum Homebildschirm Hinzufügen.".
   </div>
-  <button class="close-ios-inv right" mat-button color="primary" (click)="close()">
-    <mat-icon>close</mat-icon>
-  </button>
   <br />
   <div class="centered">
-    <img src="./assets/ios-menu-btn.png" /> <mat-icon>navigate_next</mat-icon>
-    <img src="./assets/ios-add-btn.png" />
+    <img src="./assets/ios-menu-btn.png" alt="ios Icon" />
+    <mat-icon>navigate_next</mat-icon>
+    <img src="./assets/ios-add-btn.png" alt="ios Icon" />
   </div>
 </div>

@@ -4,6 +4,15 @@
   
 }
 
+.ios-prompt {
+    padding: 1rem;
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
 .right {
   float: right;
 }

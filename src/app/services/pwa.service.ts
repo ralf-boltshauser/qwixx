@@ -25,6 +25,7 @@ export class PwaService {
         this.openPromptComponent('android');
       });
     }
+    this.openPromptComponent('ios');
     if (this.platform.IOS) {
       try {
         console.log(window.navigator);
