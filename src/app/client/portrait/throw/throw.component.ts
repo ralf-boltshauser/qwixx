@@ -9,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import ShakeDetector from 'shake-detector';
 import { JoinComponent } from '../join/join.component';
-import { ThrowModel } from '../models/throw.model';
-import { DiceService } from '../services/dice.service';
-import { MultiplayerService } from '../services/multiplayer.service';
+import { ThrowModel } from '../../../models/throw.model';
+import { DiceService } from '../../../services/dice.service';
+import { MultiplayerService } from '../../../services/multiplayer.service';
 @Component({
   selector: 'app-throw',
   templateUrl: './throw.component.html',

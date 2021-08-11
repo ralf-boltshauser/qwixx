@@ -2,7 +2,7 @@ import { ApplicationRef, Injectable } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { Platform } from '@angular/cdk/platform';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { InstallPromptComponent } from '../install-prompt/install-prompt.component';
+import { InstallPromptComponent } from '../ux/pwa/prompts/install-prompt/install-prompt.component';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 @Injectable({

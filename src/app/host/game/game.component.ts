@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MultiplayerService } from '../services/multiplayer.service';
+import { MultiplayerService } from '../../services/multiplayer.service';
 
 @Component({
   selector: 'app-game',

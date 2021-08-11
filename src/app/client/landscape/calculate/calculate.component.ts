@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CountService } from '../services/count.service';
+import { CountService } from '../../../services/count.service';
 import {
   trigger,
   state,

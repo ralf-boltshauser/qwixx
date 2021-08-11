@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CountService } from '../services/count.service';
-import { NumberButtonModel } from '../models/numberButton.model';
-import { DiceService } from '../services/dice.service';
-import { ThrowModel } from '../models/throw.model';
+import { CountService } from '../../../services/count.service';
+import { NumberButtonModel } from '../../../models/numberButton.model';
+import { DiceService } from '../../../services/dice.service';
+import { ThrowModel } from '../../../models/throw.model';
 
 @Component({
   selector: 'app-row',
