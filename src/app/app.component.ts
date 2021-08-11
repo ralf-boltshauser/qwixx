@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ThrowModel } from './models/throw.model';
 import { MultiplayerService } from './services/multiplayer.service';
-import { UpdateService } from './services/update.service';
+import { PwaService } from './services/pwa.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +11,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'qwixx';
   isMobile = true;
   constructor(
-    private updateService: UpdateService,
+    private pwaService: PwaService,
     private multiplayerService: MultiplayerService
   ) {
     this.isMobile = this.isMobileDevice();
@@ -23,7 +23,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.updateService.forceUpdate(); // force update on first load
+    this.pwaService.forceUpdate(); // force update on first load
   }
 
   isMobileDevice() {

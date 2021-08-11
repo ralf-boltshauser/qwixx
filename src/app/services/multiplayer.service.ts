@@ -56,12 +56,18 @@ export class MultiplayerService implements OnDestroy {
     }
   }
 
-  throw() {
-    let randomArray = [];
-    for (let i = 0; i < 6; i++) {
-      randomArray.push(Math.floor(Math.random() * 6) + 1);
+  throw(dices?: number[]): number[] {
+    if (dices !== undefined && dices.find((d) => d === 0) == -1) {
+      this.setDices(new ThrowModel(dices));
+      return dices;
+    } else {
+      let randomArray = [];
+      for (let i = 0; i < 6; i++) {
+        randomArray.push(Math.floor(Math.random() * 6) + 1);
+      }
+      this.setDices(new ThrowModel(randomArray));
+      return randomArray;
     }
-    this.setDices(new ThrowModel(randomArray));
   }
 
   deleteDices() {

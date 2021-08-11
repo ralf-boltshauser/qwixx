@@ -13,6 +13,7 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {}
 
   throw() {
-    this.multiplayerService.throw();
+    let dices = this.multiplayerService.throw();
+    console.log(dices);
   }
 }
