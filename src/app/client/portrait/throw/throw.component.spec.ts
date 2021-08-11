@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { ThrowComponent } from './throw.component';
 
@@ -8,6 +9,7 @@ describe('ThrowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [AppModule],
       declarations: [ ThrowComponent ]
     })
     .compileComponents();
