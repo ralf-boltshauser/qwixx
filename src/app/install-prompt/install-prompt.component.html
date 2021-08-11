@@ -3,8 +3,8 @@
   color="primary"
   class="android-prompt"
 >
-  <button mat-button (click)="installPwa()">Add to Home screen</button>
-  <button mat-icon-button (click)="close()">
+  <button mat-button (click)="installPwa()">Web App installieren</button>
+  <button mat-icon-button (click)="close()" class="right">
     <mat-icon>close</mat-icon>
   </button>
 </mat-toolbar>
@@ -15,7 +15,7 @@
     Um die Web Applikation auf deinem Handy zu installieren, klicke auf den Menü
     Knopf und anschliessend auf "Zum Homebildschirm Hinzufügen.".
   </div>
-  <button class="close-ios-inv" mat-button color="primary" (click)="close()">
+  <button class="close-ios-inv right" mat-button color="primary" (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
   <br />
