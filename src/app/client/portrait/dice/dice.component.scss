@@ -1,12 +1,14 @@
 div {
   width: 20vw;
   height: 20vw;
+  max-height: 9vh;
+  max-width: 9vh;
   background-color: rgb(182, 182, 182);
   border-radius: 15%;
-  margin: 5vw;
+  margin: min(5vw, calc(9vh / 4));
   margin-left: auto;
   margin-right: auto;
-  line-height: 20vw;
+  line-height: min(20vw, 9vh);
   font-size: 2rem;
 }
 

@@ -1,4 +1,4 @@
-<div id="diceRoller">
+<div class="information">
   <button mat-icon-button id="multiplayer" (click)="openDialog()">
     <mat-icon> people </mat-icon>
   </button>
@@ -13,6 +13,8 @@
   <div class="lobby" *ngIf="multiplayerService.connected.getValue()">
     <h2>Lobby Id: {{ multiplayerService.id }}</h2>
   </div>
+</div>
+<div id="diceRoller">
   <div>
     <div
       class="square"

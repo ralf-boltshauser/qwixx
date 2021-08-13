@@ -2,11 +2,16 @@
   width: 100vw;
   text-align: center;
   vertical-align: center;
-  padding-top: 5vh;
   padding-bottom: 10vh;
   height: 80vh;
 }
-
+.information {
+  width: 100vw;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 5vh;
+  max-height: 20vw;
+}
 button {
   margin-top: 5vw;
 }
