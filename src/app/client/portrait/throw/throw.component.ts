@@ -43,7 +43,7 @@ export class ThrowComponent implements OnInit {
     public multiplayerService: MultiplayerService,
     public rootService: RootService
   ) {}
-  
+
   canRoll = true;
   public diceValues: ThrowModel = new ThrowModel();
 
@@ -57,7 +57,6 @@ export class ThrowComponent implements OnInit {
           .getDices()
           .subscribe((dices: ThrowModel | null) => {
             if (dices) {
-              console.log('Dices: ', dices);
               this.remoteDiceRoll(dices);
             }
           });

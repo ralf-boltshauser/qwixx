@@ -40,7 +40,6 @@ export class MultiplayerService implements OnDestroy {
   setId(id: string) {
     this.id = id;
     if (id != '') {
-      //console.log('Connected', id);
       this.connected.next(true);
     }
   }

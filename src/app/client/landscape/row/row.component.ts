@@ -3,6 +3,7 @@ import { CountService } from '../../../services/count.service';
 import { NumberButtonModel } from '../../../models/numberButton.model';
 import { DiceService } from '../../../services/dice.service';
 import { ThrowModel } from '../../../models/throw.model';
+import { MultiplayerService } from 'src/app/services/multiplayer.service';
 
 @Component({
   selector: 'app-row',
@@ -16,7 +17,8 @@ export class RowComponent implements OnInit {
   buttons: NumberButtonModel[] = [];
   constructor(
     private countService: CountService,
-    private diceService: DiceService
+    private diceService: DiceService,
+    private multiPlayerService: MultiplayerService
   ) {}
 
   ngOnInit(): void {
@@ -29,16 +31,19 @@ export class RowComponent implements OnInit {
       let numbers = Object.values(dices.dices);
       //console.log(numbers);
       if (numbers.length !== 0 && numbers[0] !== 0) {
-        this.resetPossibleButtons();
-        this.setPossible(numbers[0] + numbers[1]);
-        //console.log('white dices: ', numbers[0], numbers[1]);
-        this.setPossible(numbers[0] + numbers[this.index + 2]);
-        this.setPossible(numbers[1] + numbers[this.index + 2]);
+        this.generatePossible(numbers);
       }
     });
   }
 
-  setPossible(index: number) {
+  generatePossible(numbers: number[]): void {
+    this.resetPossibleButtons();
+    this.setPossible(numbers[0] + numbers[1], '1');
+    this.setPossible(numbers[0] + numbers[this.index + 2], '2');
+    this.setPossible(numbers[1] + numbers[this.index + 2], '2');
+  }
+
+  setPossible(index: number, type: string) {
     if (this.asc) {
       index = index - 2;
     } else {
@@ -46,13 +51,13 @@ export class RowComponent implements OnInit {
     }
     //console.log('Poissible: ', index);
     if (this.buttons[index].state === '') {
-      this.buttons[index].state = 'possible';
+      this.buttons[index].state = 'possible' + type;
     }
   }
 
   resetPossibleButtons(): void {
     this.buttons.forEach((b) => {
-      if (b.state === 'possible') {
+      if (b.state === 'possible1' || b.state === 'possible2') {
         b.state = '';
       }
     });
@@ -77,7 +82,8 @@ export class RowComponent implements OnInit {
     let index = this.buttons.findIndex((b) => b.number === number);
     if (
       this.buttons[index].state === '' ||
-      this.buttons[index].state === 'possible'
+      this.buttons[index].state === 'possible1' ||
+      this.buttons[index].state === 'possible2'
     ) {
       this.buttons[index].state = 'clicked';
       this.countService.setPoints(
@@ -86,7 +92,10 @@ export class RowComponent implements OnInit {
       );
       // set state of previous button to unused
       this.buttons.forEach((b, i) => {
-        if (i < index && (b.state === '' || b.state === 'possible')) {
+        if (
+          i < index &&
+          (b.state === '' || b.state === 'possible1' || b.state === 'possible2')
+        ) {
           b.state = 'unused';
         }
       });
@@ -105,10 +114,7 @@ export class RowComponent implements OnInit {
 
         let numbers = Object.values(dices.dices);
         if (numbers.length !== 0 && numbers[0] !== 0) {
-          this.resetPossibleButtons();
-          this.setPossible(numbers[0] + numbers[1]);
-          this.setPossible(numbers[0] + numbers[this.index + 2]);
-          this.setPossible(numbers[1] + numbers[this.index + 2]);
+          this.generatePossible(numbers);
         }
         this.countService.setPoints(
           this.color,
@@ -124,7 +130,8 @@ export class RowComponent implements OnInit {
       this.buttons[index].number === 'X' ||
       (this.buttons[index].state === 'clicked' &&
         (this.buttons[index + 1].state === '' ||
-          this.buttons[index + 1].state === 'possible'))
+          this.buttons[index + 1].state === 'possible1' ||
+          this.buttons[index + 1].state === 'possible2'))
     ) {
       return true;
     }
