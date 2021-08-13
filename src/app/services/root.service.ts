@@ -24,12 +24,12 @@ export class RootService {
         dices[3] = 6;
       }
     }
-    if (color == 'blue' || color == 'green') {
+    if (color == 'green' || color == 'blue') {
       dices[Math.floor(Math.random() * 2)] = 1;
-      if (color == 'blue') {
+      if (color == 'green') {
         dices[4] = 1;
       }
-      if (color == 'green') {
+      if (color == 'blue') {
         dices[5] = 1;
       }
     }
