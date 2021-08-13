@@ -6,9 +6,11 @@
     <input matInput [(ngModel)]="data.id" />
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<mat-divider></mat-divider>
+<div class="create">
+  <button mat-button color="primary" [mat-dialog-close]="{'id': data.id, 'createLobby': true}" cdkFocusInitial>Lobby erstellen</button>
+</div>
+<div mat-dialog-actions class="actions">
   <button mat-button (click)="onNoClick()">Zurück</button>
-  <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>
-    Ok
-  </button>
+  <button mat-button [mat-dialog-close]="{'id': data.id, 'createLobby': false}" cdkFocusInitial>Ok</button>
 </div>

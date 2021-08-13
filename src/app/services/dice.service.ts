@@ -15,7 +15,6 @@ export class DiceService {
   }
 
   setDices(dices: ThrowModel) {
-    console.log(dices);
     this.dices.next(dices);
   }
 }

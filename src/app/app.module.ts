@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { DiceComponent } from './client/portrait/dice/dice.component';
 import { ThrowComponent } from './client/portrait/throw/throw.component';
@@ -57,6 +58,7 @@ const initializer = (pwaService: PwaService) => () =>
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatDividerModule,
     MatToolbarModule,
     MatBottomSheetModule,
     MatDialogModule,

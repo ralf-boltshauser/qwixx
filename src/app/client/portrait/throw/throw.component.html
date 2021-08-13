@@ -4,6 +4,9 @@
       people
     </mat-icon>
   </button>
+  <div class="lobby" *ngIf="multiplayerService.connected.getValue()">
+    <h2>Lobby Id: {{multiplayerService.id}}</h2>
+  </div>
   <div>
     <div class="square" *ngFor="let diceValue of diceValues.dices; let i = index">
       <app-dice [color]="colors[i]" [value]="diceValue"></app-dice>

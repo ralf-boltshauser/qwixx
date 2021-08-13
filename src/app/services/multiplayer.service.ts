@@ -8,12 +8,10 @@ import { ThrowModel } from '../models/throw.model';
   providedIn: 'root',
 })
 export class MultiplayerService implements OnDestroy {
-  isServer = false;
   id: string = 'asdf';
   connected = new BehaviorSubject<boolean>(false);
   constructor(private db: AngularFireDatabase) {
     this.id = this.makeid(4);
-    this.isServer = !this.isMobileDevice();
   }
   isMobileDevice() {
     var check = false;
@@ -77,7 +75,7 @@ export class MultiplayerService implements OnDestroy {
   makeid(length: number): string {
     var result = '';
     var characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      'abcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));

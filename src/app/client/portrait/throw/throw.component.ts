@@ -38,7 +38,7 @@ export class ThrowComponent implements OnInit {
   constructor(
     private diceService: DiceService,
     public dialog: MatDialog,
-    private multiplayerService: MultiplayerService
+    public multiplayerService: MultiplayerService
   ) {}
   options = {
     threshold: 8,
@@ -88,7 +88,13 @@ export class ThrowComponent implements OnInit {
   }
 
   diceRoll() {
-    if (this.canRoll) {
+    if (this.canRoll && this.multiplayerService.connected) {
+      let dices = [];
+      for (let i = 0; i < 6; i++) {
+        dices.push(Math.floor(Math.random() * 6) + 1);
+      }
+      this.multiplayerService.setDices(new ThrowModel(dices));
+    } else if (this.canRoll) {
       this.canRoll = false;
       this.reload = !this.reload;
       for (let i = 0; i < 10; i++) {
@@ -119,14 +125,21 @@ export class ThrowComponent implements OnInit {
 
   // Multiplayer stuff
   openDialog(): void {
+    let id = this.multiplayerService.makeid(4);
     const dialogRef = this.dialog.open(JoinComponent, {
       width: '250px',
-      data: { id: '' },
+      data: { id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != null) {
-        this.multiplayerService.setId(result);
+        if (result.createLobby) {
+          console.log('create lobby');
+          this.multiplayerService.setId(result.id);
+          this.multiplayerService.connected.next(true);
+        } else {
+          this.multiplayerService.setId(result.id);
+        }
       }
     });
   }
