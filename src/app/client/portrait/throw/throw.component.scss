@@ -1,0 +1,30 @@
+#diceRoller {
+  width: 100vw;
+  text-align: center;
+  vertical-align: center;
+  padding-bottom: 10vh;
+  height: 80vh;
+}
+.information {
+  width: 100vw;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 5vh;
+  max-height: 20vw;
+}
+
+#multiplayer {
+  position: absolute;
+  margin: 0;
+  top: 5vw;
+  right: 5vw;
+  float: right;
+}
+
+#root {
+  position: absolute;
+  margin: 0;
+  top: 15vw;
+  right: 5vw;
+  float: right;
+}
