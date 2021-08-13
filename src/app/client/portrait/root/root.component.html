@@ -1,0 +1,12 @@
+<h2>Root Service</h2>
+<h3>Finish Colors</h3>
+<div class="finishColors">
+  <button
+    mat-button
+    *ngFor="let color of colors"
+    [ngClass]="color"
+    [mat-dialog-close]="color"
+  >
+    {{ color }}
+  </button>
+</div>

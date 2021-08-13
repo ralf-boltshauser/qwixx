@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ThrowModel } from '../models/throw.model';
+import { RootService } from './root.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,10 @@ import { ThrowModel } from '../models/throw.model';
 export class MultiplayerService implements OnDestroy {
   id: string = 'asdf';
   connected = new BehaviorSubject<boolean>(false);
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private rootService: RootService
+  ) {
     this.id = this.makeid(4);
   }
   isMobileDevice() {
@@ -55,16 +59,26 @@ export class MultiplayerService implements OnDestroy {
   }
 
   throw(dices?: number[]): number[] {
-    if (dices !== undefined && dices.find((d) => d === 0) == -1) {
-      this.setDices(new ThrowModel(dices));
+    if (this.rootService.nextThrow.dice0 !== 0) {
+      console.log(this.rootService.nextThrow.dice0);
+
+      this.setDices(this.rootService.nextThrow);
+      let dices = Object.values(this.rootService.nextThrow.dices) as number[];
+      this.rootService.clearNextThrow();
       return dices;
     } else {
-      let randomArray = [];
-      for (let i = 0; i < 6; i++) {
-        randomArray.push(Math.floor(Math.random() * 6) + 1);
+      if (dices !== undefined && dices.find((d) => d === 0) == -1) {
+        this.setDices(new ThrowModel(dices));
+        return dices;
+      } else {
+        let randomArray = [];
+        for (let i = 0; i < 6; i++) {
+          randomArray.push(Math.floor(Math.random() * 6) + 1);
+        }
+
+        this.setDices(new ThrowModel(randomArray));
+        return randomArray;
       }
-      this.setDices(new ThrowModel(randomArray));
-      return randomArray;
     }
   }
 
@@ -74,8 +88,7 @@ export class MultiplayerService implements OnDestroy {
 
   makeid(length: number): string {
     var result = '';
-    var characters =
-      'abcdefghijklmnopqrstuvwxyz0123456789';
+    var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));

@@ -1,14 +1,23 @@
 <div id="diceRoller">
   <button mat-icon-button id="multiplayer" (click)="openDialog()">
-    <mat-icon>
-      people
-    </mat-icon>
+    <mat-icon> people </mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    id="root"
+    *ngIf="rootService.enabled"
+    (click)="openRoot()"
+  >
+    <mat-icon>code</mat-icon>
   </button>
   <div class="lobby" *ngIf="multiplayerService.connected.getValue()">
-    <h2>Lobby Id: {{multiplayerService.id}}</h2>
+    <h2>Lobby Id: {{ multiplayerService.id }}</h2>
   </div>
   <div>
-    <div class="square" *ngFor="let diceValue of diceValues.dices; let i = index">
+    <div
+      class="square"
+      *ngFor="let diceValue of diceValues.dices; let i = index"
+    >
       <app-dice [color]="colors[i]" [value]="diceValue"></app-dice>
     </div>
   </div>

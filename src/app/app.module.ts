@@ -28,6 +28,7 @@ import { JoinComponent } from './client/portrait/join/join.component';
 import { InstallPromptComponent } from './ux/pwa/prompts/install-prompt/install-prompt.component';
 import { PwaService } from './services/pwa.service';
 import { UdpateComponent } from './ux/pwa/prompts/udpate/udpate.component';
+import { RootComponent } from './client/portrait/root/root.component';
 
 const initializer = (pwaService: PwaService) => () =>
   pwaService.initPwaPrompt();
@@ -42,6 +43,7 @@ const initializer = (pwaService: PwaService) => () =>
     JoinComponent,
     InstallPromptComponent,
     UdpateComponent,
+    RootComponent,
   ],
   imports: [
     BrowserModule,

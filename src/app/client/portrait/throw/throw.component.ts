@@ -12,6 +12,8 @@ import { JoinComponent } from '../join/join.component';
 import { ThrowModel } from '../../../models/throw.model';
 import { DiceService } from '../../../services/dice.service';
 import { MultiplayerService } from '../../../services/multiplayer.service';
+import { RootService } from 'src/app/services/root.service';
+import { RootComponent } from '../root/root.component';
 @Component({
   selector: 'app-throw',
   templateUrl: './throw.component.html',
@@ -38,13 +40,10 @@ export class ThrowComponent implements OnInit {
   constructor(
     private diceService: DiceService,
     public dialog: MatDialog,
-    public multiplayerService: MultiplayerService
+    public multiplayerService: MultiplayerService,
+    public rootService: RootService
   ) {}
-  options = {
-    threshold: 8,
-    debounceDelay: 500,
-  };
-  shakeDetector = new ShakeDetector(this.options);
+  
   canRoll = true;
   public diceValues: ThrowModel = new ThrowModel();
 
@@ -52,13 +51,6 @@ export class ThrowComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.shakeDetector.confirmPermissionGranted();
-    this.shakeDetector.start();
-    this.shakeDetector.requestPermission();
-    this.shakeDetector.subscribe(() => {
-      this.diceRoll();
-    });
-
     this.multiplayerService.connected.subscribe((connected) => {
       if (connected) {
         this.multiplayerService
@@ -88,12 +80,12 @@ export class ThrowComponent implements OnInit {
   }
 
   diceRoll() {
-    if (this.canRoll && this.multiplayerService.connected) {
+    if (this.canRoll && this.multiplayerService.connected.getValue()) {
       let dices = [];
       for (let i = 0; i < 6; i++) {
         dices.push(Math.floor(Math.random() * 6) + 1);
       }
-      this.multiplayerService.setDices(new ThrowModel(dices));
+      this.multiplayerService.throw();
     } else if (this.canRoll) {
       this.canRoll = false;
       this.reload = !this.reload;
@@ -133,6 +125,10 @@ export class ThrowComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != null) {
+        if (result.id == 'root') {
+          this.rootService.enabled = true;
+          return;
+        }
         if (result.createLobby) {
           console.log('create lobby');
           this.multiplayerService.setId(result.id);
@@ -141,6 +137,17 @@ export class ThrowComponent implements OnInit {
           this.multiplayerService.setId(result.id);
         }
       }
+    });
+  }
+
+  openRoot() {
+    const dialogRef = this.dialog.open(RootComponent, {
+      width: '250px',
+      data: { color: '' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.rootService.finishColor(result);
     });
   }
 }
